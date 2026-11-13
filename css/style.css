@@ -1,0 +1,142 @@
+/* TONG WORLD
+   Figma: Homepage → Desktop (1440 × 900) and Mobile (402 × 780).
+   Vertical spacing, the mark's size and the compact switch are set by js/layout.js;
+   the values here are the no-JavaScript fallback. */
+
+@font-face {
+  font-family: "Kleisch";
+  src: url("../fonts/Kleisch-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --ink: #4E5056;
+  --paper: #FFFFFF;
+  --blue: #00BCFF;                 /* sRGB fallback */
+  --sans: "Kleisch", "Helvetica Neue", Arial, sans-serif;
+  --zh: "Songti SC", "Noto Serif SC", "STSong", "SimSun", serif;
+
+  /* layout.js overwrites these */
+  --top: max(36px, 5.333vh);
+  --gap1: 13.333vh;
+  --gap2: 8.889vh;
+  --bottom: max(48px, 6.667vh);
+  --mark-box: 49.8vh;
+  --mark: min(49.8vh, calc(100vw - 72px));
+  color-scheme: light;
+}
+/* The circle blue from area.tech/openai, in Display P3 where the screen supports it. */
+@supports (color: color(display-p3 0 0 0)) {
+  :root { --blue: color(display-p3 0 0.7373 1); }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); }
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;            /* centres the composition once the window is taller than 1440 */
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: calc(var(--top) + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(var(--bottom) + env(safe-area-inset-bottom, 0px));
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+
+  /* Type: 18 / 24 from 1200 px up, scaling with width below that, never under 14 / 18. */
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: clamp(14px, 1.5vw, 18px);
+  line-height: calc(1.5em - 3px);  /* 18 → 24, 14 → 18 */
+  text-align: center;
+}
+
+/* ---------- intro ---------- */
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  padding: 0 24px;
+}
+.intro p { margin: 0; }
+.name {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.zh {
+  font-family: var(--zh);
+  font-weight: 300;
+  margin-top: calc(1.5em - 3px) !important;   /* one line: 24 at 18 px */
+  white-space: nowrap;
+}
+.en {
+  letter-spacing: -0.0083em;                 /* −0.15 at 18 px */
+  white-space: nowrap;
+}
+
+/* ---------- mark ---------- */
+.mark {
+  width: 100%;
+  height: var(--mark-box);
+  margin-top: var(--gap1);
+  margin-bottom: var(--gap2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mark svg {
+  display: block;
+  width: var(--mark);
+  height: var(--mark);
+  fill: var(--blue);
+  overflow: visible;
+}
+
+/* ---------- contact ---------- */
+.contact { letter-spacing: -0.0083em; }
+
+/* ---------- links ---------- */
+.link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.link:hover, .link:focus-visible { color: var(--blue); }
+.link:focus-visible { outline: 1px solid var(--blue); outline-offset: 4px; }
+
+/* ---------- compact (mobile) layout ----------
+   layout.js adds .is-compact when the fixed desktop lines no longer fit at 14 px.
+   Mobile Figma: 14 / 18, text 48 px from the edges, mark 36 px from the edges. */
+.is-compact .page { font-size: 14px; line-height: 18px; }
+/* 48 px side padding at the 402 px Figma width, easing to 36 px on narrower phones */
+.is-compact .intro { padding: 0 clamp(36px, calc(100vw - 354px), 48px); max-width: 520px; }
+.is-compact .zh, .is-compact .en { white-space: normal; letter-spacing: 0.15px; }
+.is-compact .zh { margin-top: 36px !important; margin-inline: -12px; letter-spacing: 0; }
+/* Break the Chinese line between its two clauses, as in Figma; a clause only wraps
+   internally if the screen is too narrow to hold it. */
+.is-compact .zh .clause { display: inline-block; max-width: 100%; }
+.is-compact .en { margin-top: 18px; }
+.is-compact .desktop-break { display: none; }
+.is-compact .contact { letter-spacing: 0.15px; }
+
+/* No-JS fallback for small screens */
+@media (max-width: 620px) {
+  .no-js .page { font-size: 14px; line-height: 18px; }
+  .no-js .intro { padding: 0 48px; }
+  .no-js .zh, .no-js .en { white-space: normal; letter-spacing: 0.15px; }
+  .no-js .zh { margin-top: 36px !important; }
+  .no-js .en { margin-top: 18px; }
+  .no-js .desktop-break { display: none; }
+}
