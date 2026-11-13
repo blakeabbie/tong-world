@@ -22,12 +22,15 @@ Then open http://localhost:8765.
 | `favicon.svg`, `favicon-32.png`, `favicon-16.png` | Tab icon: the same skeleton on a 13 × 13 pixel grid (strokes and gaps one cell each) so it stays crisp at 16 and 32 px |
 | `apple-touch-icon.png`, `og-image.png` | Block-form home-screen icon and share image in #00BCFF |
 
+## Links
+
+- TONG WORLD → https://www.instagram.com/tong.world/ (opens in a new tab)
+- Work with us. → mailto:info@tong.world
+
 ## Before launch
 
-1. **Instagram link:** set the `href` on TONG WORLD in `index.html` (marked `data-todo="instagram"`).
-2. **Email link:** set the `href` on "Work with us." to `mailto:…` (marked `data-todo="email"`).
-3. **GitHub Pages:** push this folder as the repository root and enable Pages (Settings → Pages → Deploy from branch → `main` / root). The `CNAME` file points it at **tong.world**.
-4. **DNS for tong.world:** at the domain registrar, add A records for `tong.world` to GitHub Pages (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153) and a CNAME record for `www` to `<github-user>.github.io`. Then tick **Enforce HTTPS** in the Pages settings once the certificate is issued.
+1. **GitHub Pages:** push this folder as the repository root and enable Pages (Settings → Pages → Deploy from branch → `main` / root). The `CNAME` file points it at **tong.world**.
+2. **DNS for tong.world:** at the domain registrar, add A records for `tong.world` to GitHub Pages (185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153) and a CNAME record for `www` to `<github-user>.github.io`. Then tick **Enforce HTTPS** in the Pages settings once the certificate is issued.
 
 ## Layout rules
 
