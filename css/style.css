@@ -34,6 +34,10 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; background: var(--paper); color: var(--ink); }
+/* Stop phone browsers enlarging longer paragraphs on their own (iOS text autosizing,
+   Android font boosting), so every line stays at the size set below. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+.intro p, .contact { max-height: 999999px; } /* also opts these blocks out of Android font boosting */
 body {
   min-height: 100vh;
   min-height: 100svh;
